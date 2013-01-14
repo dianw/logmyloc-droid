@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/bookmark_padding_top" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="28.0dip"
+        android:layout_marginBottom="@dimen/one_px"
+        android:background="@android:color/transparent"
+        android:clickable="false"
+        android:focusable="false"
+        android:padding="0.0dip" >
+
+        <TextView
+            android:id="@+id/bookmark_item_label"
+            style="@style/bookmark_divider_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="2.0dip"
+            android:layout_marginLeft="14.0dip"
+            android:clickable="false" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2.0dip"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="10.0dip"
+            android:background="@color/bookmark_divider_thin" />
+    </RelativeLayout>
+
+</LinearLayout>

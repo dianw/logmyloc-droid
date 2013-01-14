@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <fragment
+        android:id="@+id/dashboard_fragment"
+        android:name="org.meruvian.midas.activity.fragment.DashboardFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="65" />
+
+    <fragment
+        android:id="@+id/webview_fragment"
+        android:name="org.meruvian.midas.activity.fragment.WebViewFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:layout_weight="35" />
+
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <View
+        android:id="@+id/bookmarks_top_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/one_px"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:background="@color/bookmark_divider_thin" />
+
+    <RelativeLayout
+        android:id="@+id/bookmark_item_holder"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:layout_marginBottom="@dimen/one_px"
+        android:padding="0.0dip" >
+ 
+        <ImageView
+            android:id="@+id/bookmark_item_icon"
+            android:layout_width="@dimen/bookmark_icon_size"
+            android:layout_height="@dimen/bookmark_icon_size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13.0dip"
+            android:layout_marginRight="0.0dip"
+            android:padding="0.0dip"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/bookmark_item_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12.0dip"
+            android:background="@drawable/bookmarks_badge"
+            android:gravity="center"
+            android:paddingBottom="2.0dip"
+            android:paddingLeft="5.0dip"
+            android:paddingRight="5.0dip"
+            android:paddingTop="0.0dip"
+            android:singleLine="true"
+            android:textColor="#ff9da3af"
+            android:textSize="16.0sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/bookmark_item_label"
+            style="@style/bookmark_item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13.0dip"
+            android:layout_marginRight="12.0dip"
+            android:layout_toLeftOf="@+id/bookmark_item_count"
+            android:layout_toRightOf="@+id/bookmark_item_icon"
+            android:shadowColor="#00000000" />
+    </RelativeLayout>
+
+</LinearLayout>

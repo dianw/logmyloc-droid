@@ -1,0 +1,64 @@
+<!--
+  Copyright 2011 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name">LogMyLoc</string>
+    <string name="toggle_title">Toggle title</string>
+    <string name="uberbar_searchbox_hint">Search</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_invite">Invite Friend</string>
+    <string name="menu_dashboard_mode">Dashboard Mode</string>
+    <string name="menu_list_mode">ListView Mode</string>
+    <string name="menu_sliding_mode">Sliding Menu Mode</string>
+    <string name="back">Back</string>
+    <string name="about">
+		\nMeruvian Foundation is a non profit organization
+		that is dedicate to develop people skill to filling the skillset of
+		people to get a global standard and bring influencing to their
+		ecosystem.
+		We facilitates the efforts of private sector entities to
+		support the
+		development of national education through their CSR
+		(Corporate Social
+		Responsibility) programs by managing their CSR
+		funds.We also provide
+		Human Resource Development to close the gap
+		between industries and
+		educations, which stronger in this millennium.
+		As
+		one of the biggest Java Research Centre in Indonesia.We have
+		dedicated
+		of our research product for support Open Source program in
+		Indonesia.Now we have some products which ready to use for your
+		business
+		\n
+		\n
+		Our Services: \n
+		http://www.mervpolis.com
+		(Marketspace) \n
+		http://www.meruvian.org \n(Foundation) \n
+		http://www.meruvian.net
+		\n(Partnership) \n
+		http://www.meruvian.com
+		\n(Education) \n
+    </string>
+    <string name="midas">Meruvian midas adalah sebuah sebuah project open source di gunakan untuk memudahkan mendesain layout di android dengan mudah. di project ini sudah di sediakan contoh-contoh layout, drawable, dan variable-variable xml seperti color dimension dll.</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</string>
+    <string name="add_location">Add Location</string>
+    <string name="menu_save">Save</string>
+</resources>

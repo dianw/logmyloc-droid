@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/transparent"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/navbar_holder"
+        android:layout_width="266.0dip"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:id="@+id/navbar"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:clickable="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/one_px"
+                android:layout_alignParentTop="true"
+                android:background="#40525763" />
+
+            <ListView
+                android:id="@+id/bookmarks_list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignWithParentIfMissing="true"
+                android:layout_weight="1.0"
+                android:background="@color/slide_menu_bg"
+                android:cacheColorHint="#00000000"
+                android:divider="#00000000"
+                android:dividerHeight="0.0px"
+                android:drawSelectorOnTop="false"
+                android:fastScrollEnabled="false"
+                android:listSelector="@drawable/empty"
+                android:scrollbars="none" />
+
+            <ImageView
+                android:id="@+id/bookmarks_shadow"
+                android:layout_width="8.0dip"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_margin="0.0dip"
+                android:padding="0.0dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/bookmark_menu_shadow" 
+                android:contentDescription="@string/app_name"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <View
+        android:id="@+id/empty"
+        android:layout_width="0.0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:background="@android:color/transparent" />
+</LinearLayout>
