@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.meruvian.midas.content.database;
 
 import android.content.Context;
@@ -26,11 +25,11 @@ import android.database.sqlite.SQLiteOpenHelper;
  * 
  */
 public class MidasDatabase extends SQLiteOpenHelper {
-	public static final String DATABASE = "mutiaraiman.db";
+	public static final String DATABASE = "logmyloc.db";
 	private static final int VERSION_CODE = 1;
-	private static final int VERSION = 1;
 
 	public interface Tables {
+		public static final String PLACE = "place";
 	}
 
 	public MidasDatabase(Context context) {
@@ -39,7 +38,12 @@ public class MidasDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		
+		db.execSQL("CREATE TABLE " + Tables.PLACE
+				+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ " lat REAL NOT NULL DEFAULT 0, lng REAL NOT NULL DEFAULT 0,"
+				+ " title TEXT UNIQUE, description TEXT display_name TEXT,"
+				+ " address_road TEXT, address_city TEXT, address_state TEXT,"
+				+ " address_postcode TEXT, address_country TEXT)");
 	}
 
 	@Override

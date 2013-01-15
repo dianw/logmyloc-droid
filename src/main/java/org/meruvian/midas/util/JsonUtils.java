@@ -1,6 +1,5 @@
 package org.meruvian.midas.util;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -16,19 +15,19 @@ public class JsonUtils {
 
 	public static <T> T requestJsonFromHttp(Class<T> clazz, String method,
 			String uri, NameValuePair... nameValuePairs) {
+		T result = null;
+
 		try {
 			HttpEntity entity = RestUtils.request(method, uri, nameValuePairs)
 					.getEntity();
 			InputStream stream = entity.getContent();
 
 			Gson gson = new Gson();
-			return gson.fromJson(new InputStreamReader(stream), clazz);
-		} catch (IllegalStateException e) {
-			LOG.error(e.getMessage(), e);
-		} catch (IOException e) {
-			LOG.error(e.getMessage(), e);
+			result = gson.fromJson(new InputStreamReader(stream), clazz);
+		} catch (Exception e) {
+			// LOG.error(e.getMessage(), e);
 		}
 
-		return null;
+		return result;
 	}
 }

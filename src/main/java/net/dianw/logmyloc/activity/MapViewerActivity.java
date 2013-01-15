@@ -3,7 +3,6 @@ package net.dianw.logmyloc.activity;
 import java.util.ArrayList;
 
 import net.dianw.logmyloc.map.PointItemizedOverlay;
-import net.dianw.logmyloc.service.MapLoaderService;
 
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -15,7 +14,6 @@ import org.osmdroid.views.overlay.TilesOverlay;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
@@ -68,12 +66,13 @@ public class MapViewerActivity extends DefaultMapActivity implements
 		tilesOverlay = new TilesOverlay(tileProvider, this);
 		mapView.getOverlays().add(tilesOverlay);
 
-		// relativeLayout = new RelativeLayout(this);
-		// relativeLayout.addView(mapView, new RelativeLayout.LayoutParams(
-		// LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-		// setContentView(relativeLayout);
+		relativeLayout = new RelativeLayout(this);
+		relativeLayout.addView(mapView, new RelativeLayout.LayoutParams(
+				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		setContentView(relativeLayout);
 
-		setContentViewWithNavigation(mapView);
+		// setContentViewWithNavigation(mapView);
+		setContentView(relativeLayout);
 	}
 
 	@Override

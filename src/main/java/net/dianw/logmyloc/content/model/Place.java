@@ -8,12 +8,14 @@ public class Place implements Serializable {
 	private String id;
 	@SerializedName("place_id")
 	private String placeId;
+	private String title;
+	private String description;
 	@SerializedName("osm_type")
 	private String osmType;
 	@SerializedName("osm_id")
 	private String osmId;
-	private double lat;
-	private double lon;
+	private double lat = 0;
+	private double lon = 0;
 	@SerializedName("display_name")
 	private String displayName;
 	private Address address;
@@ -32,6 +34,22 @@ public class Place implements Serializable {
 
 	public void setPlaceId(String placeId) {
 		this.placeId = placeId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getOsmType() {

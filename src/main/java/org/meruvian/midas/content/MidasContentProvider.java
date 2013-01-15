@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.meruvian.midas.content;
 
-import org.meruvian.midas.content.database.MidasDatabase;
+import java.util.Locale;
 
+import org.meruvian.midas.content.database.MidasDatabase;
+import org.meruvian.midas.content.database.MidasDatabase.Tables;
+
+import android.annotation.SuppressLint;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -31,11 +34,12 @@ import android.net.Uri;
  * @author Dian Aditya
  * 
  */
+@SuppressLint("NewApi")
 public class MidasContentProvider extends ContentProvider {
 
 	private MidasDatabase dbHelper;
 
-	public static final String TABLES[] = {};
+	public static final String TABLES[] = { Tables.PLACE };
 
 	private UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH) {
 		{
@@ -48,7 +52,7 @@ public class MidasContentProvider extends ContentProvider {
 	};
 
 	public static final String AUTHORITY = MidasContentProvider.class.getName()
-			.toLowerCase();
+			.toLowerCase(Locale.US);
 	public static final String CONTENT_PATH = "content://" + AUTHORITY + "/";
 
 	@Override
