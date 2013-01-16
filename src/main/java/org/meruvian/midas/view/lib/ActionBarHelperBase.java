@@ -99,10 +99,7 @@ public class ActionBarHelperBase extends ActionBarHelper {
 		SimpleMenu tempMenu = new SimpleMenu(mActivity);
 		SimpleMenuItem homeItem = new SimpleMenuItem(tempMenu,
 				android.R.id.home, 0, mActivity.getTitle());
-		String globalVariableIcon = GlobalVariable.getGlobalVariableByKey(
-				mActivity, "default.title.icon");
-		homeItem.setIcon(globalVariableIcon != "" ? Integer
-				.decode(globalVariableIcon) : this.actionBarIcon);
+		homeItem.setIcon(R.drawable.ic_home_white);
 		addActionItemCompatFromMenuItem(homeItem);
 
 		// Add title text

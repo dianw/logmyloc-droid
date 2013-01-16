@@ -4,6 +4,7 @@ import net.dianw.logmyloc.R;
 import net.dianw.logmyloc.content.model.Address;
 import net.dianw.logmyloc.content.model.Place;
 import net.dianw.logmyloc.service.NominatimRestService;
+import net.dianw.logmyloc.util.ValidationUtils;
 
 import org.meruvian.midas.content.MidasContentProvider;
 import org.meruvian.midas.content.database.MidasDatabase.Tables;
@@ -17,13 +18,17 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
-public class LocationFormActivity extends DefaultMapActivity {
+public class LocationFormActivity extends DefaultMapActivity implements
+		LoaderCallbacks<Cursor> {
 	private View mainLayout;
 	private ProgressDialog progressDialog;
 
@@ -67,8 +72,12 @@ public class LocationFormActivity extends DefaultMapActivity {
 		txtCountry = findView(R.id.text_country);
 		txtDetails = findView(R.id.text_details);
 
-		if (savedInstanceState != null) {
-			id = savedInstanceState.getString(BaseColumns._ID);
+		if (getIntent().getExtras() != null) {
+			id = getIntent().getExtras().getString(BaseColumns._ID);
+		}
+
+		if (id != null) {
+			getSupportLoaderManager().initLoader(0, null, this);
 		}
 	}
 
@@ -87,41 +96,6 @@ public class LocationFormActivity extends DefaultMapActivity {
 			Intent intent = new Intent(this, NominatimRestService.class);
 			intent.putExtra("receiver", receiver);
 			startService(intent);
-		} else {
-			CursorLoader loader = new CursorLoader(this);
-			loader.setSelection("_id = ?");
-			loader.setSelectionArgs(new String[] { id });
-			loader.setSortOrder("id ASC");
-			loader.setUri(dbUri);
-
-			Cursor cursor = loader.loadInBackground();
-			if (cursor.getCount() > 0) {
-				cursor.moveToFirst();
-				Place place = new Place();
-				place.setDisplayName(cursor.getString(cursor
-						.getColumnIndex("display_name")));
-				place.setTitle(cursor.getString(cursor.getColumnIndex("title")));
-				place.setDescription(cursor.getString(cursor
-						.getColumnIndex("description")));
-				place.setLat(cursor.getDouble(cursor.getColumnIndex("lat")));
-				place.setLon(cursor.getDouble(cursor.getColumnIndex("lng")));
-
-				Address address = place.getAddress();
-				address.setRoad(cursor.getString(cursor
-						.getColumnIndex("address_road")));
-				address.setCity(cursor.getString(cursor
-						.getColumnIndex("address_city")));
-				address.setState(cursor.getString(cursor
-						.getColumnIndex("address_state")));
-				address.setCountry(cursor.getString(cursor
-						.getColumnIndex("address_country")));
-				address.setPostcode(cursor.getString(cursor
-						.getColumnIndex("address_postcode")));
-
-				initFields(place);
-			}
-
-			loader.deliverResult(cursor);
 		}
 	}
 
@@ -152,11 +126,25 @@ public class LocationFormActivity extends DefaultMapActivity {
 			break;
 		}
 
-		return true;
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void savePlace() {
-		ContentValues values = new ContentValues();
+		if (ValidationUtils.isBlank(txtTitle)) {
+			Toast.makeText(this, "Fill required field!", Toast.LENGTH_LONG)
+					.show();
+
+			return;
+		}
+
+		if (ValidationUtils.isNotDouble(txtLatitude, txtLongitude)) {
+			Toast.makeText(this, "Not a valid latitude or longitude",
+					Toast.LENGTH_LONG).show();
+
+			return;
+		}
+
+		final ContentValues values = new ContentValues();
 		values.put("title", txtTitle.getText().toString());
 		values.put("description", txtDescription.getText().toString());
 		values.put("lat", Double.parseDouble(txtLatitude.getText().toString()));
@@ -189,6 +177,8 @@ public class LocationFormActivity extends DefaultMapActivity {
 	private void initFields(Place place) {
 		if (place == null)
 			return;
+		txtTitle.setText(place.getTitle());
+		txtDescription.setText(place.getDescription());
 		txtLatitude.setText(Double.toString(place.getLat()));
 		txtLongitude.setText(Double.toString(place.getLon()));
 		txtRoad.setText(place.getAddress().getRoad());
@@ -197,5 +187,48 @@ public class LocationFormActivity extends DefaultMapActivity {
 		txtPostcode.setText(place.getAddress().getPostcode());
 		txtCountry.setText(place.getAddress().getCountry());
 		txtDetails.setText(place.getDisplayName());
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+		CursorLoader loader = new CursorLoader(this, dbUri, null, "_id = ?",
+				new String[] { this.id }, "_id DESC");
+
+		return loader;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			Place place = new Place();
+			place.setDisplayName(cursor.getString(cursor
+					.getColumnIndex("display_name")));
+			place.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+			place.setDescription(cursor.getString(cursor
+					.getColumnIndex("description")));
+			place.setLat(cursor.getDouble(cursor.getColumnIndex("lat")));
+			place.setLon(cursor.getDouble(cursor.getColumnIndex("lng")));
+
+			Address address = new Address();
+			address.setRoad(cursor.getString(cursor
+					.getColumnIndex("address_road")));
+			address.setCity(cursor.getString(cursor
+					.getColumnIndex("address_city")));
+			address.setState(cursor.getString(cursor
+					.getColumnIndex("address_state")));
+			address.setCountry(cursor.getString(cursor
+					.getColumnIndex("address_country")));
+			address.setPostcode(cursor.getString(cursor
+					.getColumnIndex("address_postcode")));
+			place.setAddress(address);
+
+			initFields(place);
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+
 	}
 }

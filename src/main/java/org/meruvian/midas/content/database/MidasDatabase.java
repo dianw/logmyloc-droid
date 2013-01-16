@@ -41,7 +41,7 @@ public class MidasDatabase extends SQLiteOpenHelper {
 		db.execSQL("CREATE TABLE " + Tables.PLACE
 				+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ " lat REAL NOT NULL DEFAULT 0, lng REAL NOT NULL DEFAULT 0,"
-				+ " title TEXT UNIQUE, description TEXT display_name TEXT,"
+				+ " title TEXT UNIQUE, description TEXT, display_name TEXT,"
 				+ " address_road TEXT, address_city TEXT, address_state TEXT,"
 				+ " address_postcode TEXT, address_country TEXT)");
 	}

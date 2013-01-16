@@ -16,10 +16,12 @@
 
 <resources>
 
-    <color name="actionbar_title_color">#224894</color>
-    <color name="bookmark_text">#ffffffff</color>
+    <color name="actionbar_title">#EEE</color>
+    <color name="actionbar_backgroud">#2B2B2B</color>
+    <color name="bookmark_text">#FFF</color>
     <color name="menu_item_pressed">#80000000</color>
     <color name="bookmark_item_highlight">#ff1a1e26</color>
     <color name="bookmark_divider_thin">#ff3f4552</color>
-	<color name="slide_menu_bg">#eee</color>
+    <color name="slide_menu_bg">#eee</color>
+
 </resources>
