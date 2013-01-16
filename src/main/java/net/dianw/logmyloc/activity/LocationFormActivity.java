@@ -17,6 +17,7 @@ import android.database.Cursor;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.BaseColumns;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
@@ -85,6 +86,17 @@ public class LocationFormActivity extends DefaultMapActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.location_form_menu, menu);
 
+		MenuItem menuViewMap = menu.findItem(R.id.menu_view_on_map);
+		MenuItem menuSave = menu.findItem(R.id.menu_save);
+
+		if (id == null) {
+			menuSave.setTitle(R.string.menu_save);
+			menuViewMap.setVisible(false);
+		} else {
+			menuSave.setTitle(R.string.menu_update);
+			menuViewMap.setVisible(true);
+		}
+
 		return true;
 	}
 
@@ -107,7 +119,6 @@ public class LocationFormActivity extends DefaultMapActivity implements
 		switch (resultCode) {
 		case CONNECTION_STARTED:
 			progressDialog.show();
-
 			break;
 		default:
 			break;
@@ -121,6 +132,17 @@ public class LocationFormActivity extends DefaultMapActivity implements
 		switch (item.getItemId()) {
 		case R.id.menu_save:
 			savePlace();
+			break;
+		case R.id.menu_view_on_map:
+			double lat = Double.parseDouble(txtLatitude.getText().toString());
+			double lng = Double.parseDouble(txtLongitude.getText().toString());
+
+			Intent intent = new Intent(this, MapViewerActivity.class);
+			intent.putExtra("lat", lat);
+			intent.putExtra("lng", lng);
+			intent.putExtra(BaseColumns._ID, this.id);
+
+			startActivity(intent);
 			break;
 		default:
 			break;
@@ -156,13 +178,18 @@ public class LocationFormActivity extends DefaultMapActivity implements
 		values.put("address_postcode", txtPostcode.getText().toString());
 		values.put("address_country", txtCountry.getText().toString());
 
-		if (id == null) {
-			db.insert(dbUri, values);
-		} else {
-			db.update(dbUri, values, "_id = ?", new String[] { id });
-		}
+		new Handler().post(new Runnable() {
+			@Override
+			public void run() {
+				if (id == null) {
+					db.insert(dbUri, values);
+				} else {
+					db.update(dbUri, values, "_id = ?", new String[] { id });
+				}
 
-		finish();
+				finish();
+			}
+		});
 	}
 
 	@Override

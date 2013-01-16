@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:layout_gravity="center_vertical|center_horizontal"
     android:background="#ffffff"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,16 +18,10 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
             android:background="#FFFFFF"
             android:gravity="center"
-            android:orientation="vertical" 
-            android:layout_marginBottom="3dp" >
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/meruvian_about" />
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/spacer"
@@ -38,7 +32,7 @@
                 android:id="@+id/aboutWebview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

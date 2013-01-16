@@ -3,13 +3,13 @@ package org.meruvian.midas.view.lib;
 import java.util.Date;
 
 import net.dianw.logmyloc.R;
+import net.dianw.logmyloc.activity.LocationListActivity;
 import net.dianw.logmyloc.activity.MapViewerActivity;
 
 import org.meruvian.midas.activity.AboutActivity;
 import org.meruvian.midas.view.adapter.NavigationMenuAdapter;
 import org.meruvian.midas.view.lib.SideHorizontalScrollView.SizeCallback;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class SideNavigationActivity extends ActionBarActivity implements
 		OnItemClickListener {
@@ -42,9 +41,9 @@ public class SideNavigationActivity extends ActionBarActivity implements
 		ListView menuList = (ListView) menu.findViewById(R.id.bookmarks_list);
 		mAdapter = new NavigationMenuAdapter(this);
 		mAdapter.addSeparatorItem("Main Menu");
-		mAdapter.addItem("Location List", R.drawable.ic_action_refresh);
-		mAdapter.addItem("View Map", R.drawable.ic_action_search);
-		mAdapter.addItem("Settings", android.R.drawable.ic_menu_manage);
+		mAdapter.addItem("Location List", android.R.drawable.ic_menu_mapmode);
+		mAdapter.addItem("My Current Location",
+				android.R.drawable.ic_menu_myplaces);
 		mAdapter.addItem("About", android.R.drawable.ic_menu_help);
 		mAdapter.addItem("Exit", android.R.drawable.ic_menu_revert);
 
@@ -138,13 +137,21 @@ public class SideNavigationActivity extends ActionBarActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Context context = view.getContext();
 		switch (position) {
+		case 1:
+			startActivity(new Intent(this, LocationListActivity.class));
+			break;
 		case 2:
 			startActivity(new Intent(this, MapViewerActivity.class));
 			break;
-		case 6:
+		case 3:
 			startActivity(new Intent(this, AboutActivity.class));
+			break;
+		case 4:
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_HOME);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
 			break;
 		default:
 			break;

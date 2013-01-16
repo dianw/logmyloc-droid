@@ -5,7 +5,7 @@
         android:id="@+id/menu_add_location"
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="ifRoom"
-        android:title="@string/add_location">
+        android:title="@string/menu_add_location">
     </item>
 
 </menu>

@@ -3,9 +3,11 @@ package net.dianw.logmyloc.activity;
 import java.util.ArrayList;
 
 import net.dianw.logmyloc.map.PointItemizedOverlay;
+import net.dianw.logmyloc.service.MapLoaderService;
 
 import org.osmdroid.tileprovider.MapTileProviderBasic;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay.OnItemGestureListener;
 import org.osmdroid.views.overlay.OverlayItem;
@@ -14,8 +16,10 @@ import org.osmdroid.views.overlay.TilesOverlay;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -32,15 +36,24 @@ public class MapViewerActivity extends DefaultMapActivity implements
 
 	private ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
 	private MapTileProviderBasic tileProvider;
+	private String id;
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 
-		// Intent intent = new Intent(this, MapLoaderService.class);
-		// intent.putExtra("receiver", receiver);
-		// startService(intent);
+		Bundle bundle = getIntent().getExtras();
 
+		if (id != null) {
+			double lat = bundle.getDouble("lat");
+			double lng = bundle.getDouble("lng");
+
+			initMap(new GeoPoint(lat, lng));
+		} else {
+			Intent intent = new Intent(this, MapLoaderService.class);
+			intent.putExtra("receiver", receiver);
+			startService(intent);
+		}
 	}
 
 	@Override
@@ -69,10 +82,12 @@ public class MapViewerActivity extends DefaultMapActivity implements
 		relativeLayout = new RelativeLayout(this);
 		relativeLayout.addView(mapView, new RelativeLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+
 		setContentView(relativeLayout);
 
-		// setContentViewWithNavigation(mapView);
-		setContentView(relativeLayout);
+		if (getIntent().getExtras() != null) {
+			this.id = getIntent().getExtras().getString(BaseColumns._ID);
+		}
 	}
 
 	@Override
@@ -100,18 +115,20 @@ public class MapViewerActivity extends DefaultMapActivity implements
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// items = new ArrayList<OverlayItem>();
-		//
-		// GeoPoint center = new GeoPoint(location);
-		//
-		// items.add(new OverlayItem("You're here", "Your current location",
-		// center));
-		// itemizedOverlay = new PointItemizedOverlay<OverlayItem>(items, this
-		// .getResources().getDrawable(android.R.drawable.star_big_on),
-		// this, this);
-		// mapView.getOverlays().add(itemizedOverlay);
-		// mapView.getController().setZoom(11);
-		// mapView.getController().setCenter(center);
+		initMap(new GeoPoint(location));
+	}
+
+	private void initMap(GeoPoint center) {
+		items = new ArrayList<OverlayItem>();
+
+		items.add(new OverlayItem("You're here", "Your current location",
+				center));
+		itemizedOverlay = new PointItemizedOverlay<OverlayItem>(items, this
+				.getResources()
+				.getDrawable(android.R.drawable.ic_menu_myplaces), this, this);
+		mapView.getOverlays().add(itemizedOverlay);
+		mapView.getController().setZoom(11);
+		mapView.getController().setCenter(center);
 	}
 
 	@Override
